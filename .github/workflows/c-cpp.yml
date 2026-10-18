@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: Android NDK Build
 
 on:
   push:
@@ -8,16 +8,16 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
-    - name: configure
-      run: ./configure
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+    - name: ndk-build
+      run: |
+        $ANDROID_NDK_HOME/ndk-build \
+          NDK_PROJECT_PATH=. \
+          APP_BUILD_SCRIPT=Android.mk \
+          NDK_APPLICATION_MK=Application.mk
+    - uses: actions/upload-artifact@v4
+      with:
+        name: libs
+        path: libs/
