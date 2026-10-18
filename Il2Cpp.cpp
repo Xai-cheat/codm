@@ -3,6 +3,11 @@
 #include <jni.h>
 #include <unistd.h>
 #include <mutex>
+#include <string>
+#include <locale>
+#include <codecvt>
+#include <cstring>
+#include <cstdlib>
 #include "Il2cpp.h"
 #include "Fake_dlfcn.h"
 #include "Tools.h"
@@ -57,7 +62,11 @@ UTF32 surrogate_to_utf32(UTF16 high, UTF16 low) {
 const char* utf16_to_utf8(const UTF16* source, size_t len) {
     std::u16string s(source, source + len);
     std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> convert;
-    return convert.to_bytes(s).c_str();
+    std::string bytes = convert.to_bytes(s);
+    char* out = (char*)malloc(bytes.size() + 1);
+    if (!out) return nullptr;
+    memcpy(out, bytes.c_str(), bytes.size() + 1);
+    return out;
 }
 
 const wchar_t* utf16_to_utf32(const UTF16* source, size_t len) {
