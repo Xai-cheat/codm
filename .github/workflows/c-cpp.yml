@@ -15,14 +15,11 @@ jobs:
           submodules: recursive
           lfs: true
 
-      - name: Check Dobby and libs
+      - name: Copy dobby.h into expected folder
         run: |
-          echo "--- dobby.h locations ---"
-          find . -iname "dobby.h"
-          echo "--- Dobby folder ---"
-          ls -la IL2CppSDKGenerator/Dobby/ || echo "Dobby folder MISSING"
-          echo "--- .a files ---"
-          find . -name "*.a"
+          mkdir -p IL2CppSDKGenerator/Dobby
+          cp dobby.h IL2CppSDKGenerator/Dobby/dobby.h
+          ls -la IL2CppSDKGenerator/Dobby/
 
       - name: ndk-build
         run: |
