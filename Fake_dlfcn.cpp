@@ -5,7 +5,7 @@
 #include <sys/mman.h>
 #include <sys/system_properties.h>
 #include <unistd.h>
-#include "Includes/obfuscate.h"
+#include "obfuscate.h"
 #include "Fake_dlfcn.h"
 
 #define g_LogTag OBFUSCATE("Fake_Dlfcn-LOGGER")
