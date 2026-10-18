@@ -55,6 +55,12 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/SDK/Xhook
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/SDK/Xhook
 include $(BUILD_STATIC_LIBRARY)
 
+# Define prebuilt libctorHook so modules depending on it can link
+include $(CLEAR_VARS)
+LOCAL_MODULE := libctorHook
+LOCAL_SRC_FILES := libctorHook.a
+include $(PREBUILT_STATIC_LIBRARY)
+
 include $(CLEAR_VARS)
 LOCAL_MODULE           := libv+++
 LOCAL_CFLAGS           := -Wno-error=format-security -fvisibility=hidden -ffunction-sections -fdata-sections -w
@@ -68,11 +74,12 @@ LOCAL_ARM_MODE         := arm
 LOCAL_LDLIBS           := -llog -landroid -lEGL -lGLESv3 -lGLESv2 -lGLESv1_CM -lz
 
 LOCAL_C_INCLUDES       += $(LOCAL_PATH)
-FILE_LIST              := $(wildcard $(LOCAL_PATH)/ImGui/*.c*)
-FILE_LIST              += $(wildcard $(LOCAL_PATH)/IL2CppSDKGenerator/IL2Cpp/*.c*)
-FILE_LIST              += $(wildcard $(LOCAL_PATH)/IL2CppSDKGenerator/KittyMemory/*.c*)
-FILE_LIST              += $(wildcard $(LOCAL_PATH)/System/Texture/*.c*)
-FILE_LIST              += $(wildcard $(LOCAL_PATH)/*.c*)
+# Use explicit source extensions to avoid picking up non-source files (like .cnf)
+FILE_LIST              := $(wildcard $(LOCAL_PATH)/ImGui/*.c) $(wildcard $(LOCAL_PATH)/ImGui/*.cpp) $(wildcard $(LOCAL_PATH)/ImGui/*.cc)
+FILE_LIST              += $(wildcard $(LOCAL_PATH)/IL2CppSDKGenerator/IL2Cpp/*.c) $(wildcard $(LOCAL_PATH)/IL2CppSDKGenerator/IL2Cpp/*.cpp)
+FILE_LIST              += $(wildcard $(LOCAL_PATH)/IL2CppSDKGenerator/KittyMemory/*.c) $(wildcard $(LOCAL_PATH)/IL2CppSDKGenerator/KittyMemory/*.cpp)
+FILE_LIST              += $(wildcard $(LOCAL_PATH)/System/Texture/*.c) $(wildcard $(LOCAL_PATH)/System/Texture/*.cpp)
+FILE_LIST              += $(wildcard $(LOCAL_PATH)/*.c) $(wildcard $(LOCAL_PATH)/*.cpp) $(wildcard $(LOCAL_PATH)/*.cc)
 
 LOCAL_SRC_FILES        := $(FILE_LIST:$(LOCAL_PATH)/%=%) \
                                Substrate/hde64.c \
