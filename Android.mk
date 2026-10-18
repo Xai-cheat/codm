@@ -4,42 +4,35 @@ MAIN_LOCAL_PATH := $(call my-dir)
 # ============================================================================ #
 include $(CLEAR_VARS)
 LOCAL_MODULE := libcurl
-LOCAL_SRC_FILES := curl/curl-android-$(TARGET_ARCH_ABI)/lib/libcurl.a
+LOCAL_SRC_FILES := libcurl.a
 include $(PREBUILT_STATIC_LIBRARY)
 # ============================================================================ #
 include $(CLEAR_VARS)
 LOCAL_MODULE := libssl
-LOCAL_SRC_FILES := curl/openssl-android-$(TARGET_ARCH_ABI)/lib/libssl.a
+LOCAL_SRC_FILES := libssl.a
 include $(PREBUILT_STATIC_LIBRARY)
 # ============================================================================ #
 include $(CLEAR_VARS)
 LOCAL_MODULE := libcrypto
-LOCAL_SRC_FILES := curl/openssl-android-$(TARGET_ARCH_ABI)/lib/libcrypto.a
+LOCAL_SRC_FILES := libcrypto.a
 include $(PREBUILT_STATIC_LIBRARY)
 
 # ============================================================================#
 # ============================================================================
 include $(CLEAR_VARS)
 LOCAL_MODULE            := libdobby
-LOCAL_SRC_FILES         := IL2CppSDKGenerator/Dobby/libraries/$(TARGET_ARCH_ABI)/libdobby.a
+LOCAL_SRC_FILES         := libdobby.a
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/IL2CppSDKGenerator/Dobby/
 include $(PREBUILT_STATIC_LIBRARY)
 
 # ============================================================================ #
 include $(CLEAR_VARS)
 LOCAL_MODULE := libfoxcheats
-LOCAL_SRC_FILES := foxcheats/libs/$(TARGET_ARCH_ABI)/libfoxcheats.a
+LOCAL_SRC_FILES := libfoxcheats.a
 include $(PREBUILT_STATIC_LIBRARY)
 # ============================================================================#
 
 include $(CLEAR_VARS)
-LOCAL_MODULE    := libctorHook
-LOCAL_SRC_FILES := ctorHook/libs/$(TARGET_ARCH_ABI)/libctorHook.a
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
-
-# ============================================================================
 
 # ============================================================================#
 
@@ -82,31 +75,28 @@ FILE_LIST              += $(wildcard $(LOCAL_PATH)/System/Texture/*.c*)
 FILE_LIST              += $(wildcard $(LOCAL_PATH)/*.c*)
 
 LOCAL_SRC_FILES        := $(FILE_LIST:$(LOCAL_PATH)/%=%) \
-                              Substrate/hde64.c \
-                              Substrate/SubstrateDebug.cpp \
-                              Substrate/SubstrateHook.cpp \
-                              Substrate/SubstratePosixMemory.cpp \
-                              Substrate/And64InlineHook.cpp \
-                              AstralPrtctn/md5.cpp
-                              
+                               Substrate/hde64.c \
+                               Substrate/SubstrateDebug.cpp \
+                               Substrate/SubstrateHook.cpp \
+                               Substrate/SubstratePosixMemory.cpp \
+                               Substrate/And64InlineHook.cpp \
+                               AstralPrtctn/md5.cpp
+                               
 LOCAL_LDLIBS := -llog -landroid
 FILE_LIST := $(wildcard $(LOCAL_PATH)/libzip/*.c)
 LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/curl/curl-android-$(TARGET_ARCH_ABI)/include
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/curl/openssl-android-$(TARGET_ARCH_ABI)/include
+LOCAL_C_INCLUDES := $(LOCAL_PATH)
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/libzip
 
 LOCAL_LDLIBS           := -llog -landroid -lz -lEGL -lGLESv2 -lGLESv3
 LOCAL_STATIC_LIBRARIES := libcurl libssl libcrypto libdobby libfoxcheats libxhook libctorHook
 
 LOCAL_CPP_FEATURES                      := exceptions
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/curl/curl-android-$(TARGET_ARCH_ABI)/include
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/curl/openssl-android-$(TARGET_ARCH_ABI)/include
-
+LOCAL_C_INCLUDES := $(LOCAL_PATH)
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/foxcheats
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/foxcheats/includes
 
-                     
+                      
 include $(BUILD_SHARED_LIBRARY)
 # ============================================================================
