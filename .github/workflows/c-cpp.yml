@@ -15,8 +15,14 @@ jobs:
           submodules: recursive
           lfs: true
 
-      - name: Search for libcurl
-        run: find . -name "libcurl.a"
+      - name: Check Dobby and libs
+        run: |
+          echo "--- dobby.h locations ---"
+          find . -iname "dobby.h"
+          echo "--- Dobby folder ---"
+          ls -la IL2CppSDKGenerator/Dobby/ || echo "Dobby folder MISSING"
+          echo "--- .a files ---"
+          find . -name "*.a"
 
       - name: ndk-build
         run: |
@@ -29,4 +35,3 @@ jobs:
         with:
           name: libs
           path: libs/
-          
