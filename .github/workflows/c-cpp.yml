@@ -19,7 +19,13 @@ jobs:
         run: |
           mkdir -p IL2CppSDKGenerator/Dobby
           cp dobby.h IL2CppSDKGenerator/Dobby/dobby.h
-          ls -la IL2CppSDKGenerator/Dobby/
+
+      - name: Find where IL2CPP macros are defined
+        run: |
+          echo "--- IL2CPP_DOMAIN_GET definitions/uses ---"
+          grep -rn "IL2CPP_DOMAIN_GET\b" . || echo "NOT FOUND ANYWHERE"
+          echo "--- All header files ---"
+          find . -name "*.h" -not -path "./.git/*"
 
       - name: ndk-build
         run: |
