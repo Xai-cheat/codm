@@ -3,6 +3,36 @@
 #include <cstdint>
 #include <cstddef>
 
+// Fallbacks for Android-IL2CPP offset constants when the project does not include
+// the generated offset header or the symbols are unavailable in this build target.
+#ifndef IL2CPP_DOMAIN_GET
+#define IL2CPP_DOMAIN_GET 0
+#endif
+
+#ifndef IL2CPP_DOMAIN_GET_ASSEMBLIES
+#define IL2CPP_DOMAIN_GET_ASSEMBLIES 0
+#endif
+
+#ifndef IL2CPP_ASSEMBLY_GET_IMAGE
+#define IL2CPP_ASSEMBLY_GET_IMAGE 0
+#endif
+
+#ifndef IL2CPP_DOMAIN_ASSEMBLY_OPEN
+#define IL2CPP_DOMAIN_ASSEMBLY_OPEN 0
+#endif
+
+#ifndef IL2CPP_CLASS_FROM_NAME
+#define IL2CPP_CLASS_FROM_NAME 0
+#endif
+
+#ifndef IL2CPP_CLASS_GET_FIELD_FROM_NAME
+#define IL2CPP_CLASS_GET_FIELD_FROM_NAME 0
+#endif
+
+#ifndef IL2CPP_CLASS_GET_METHOD_FROM_NAME
+#define IL2CPP_CLASS_GET_METHOD_FROM_NAME 0
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
