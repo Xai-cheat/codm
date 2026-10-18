@@ -27,14 +27,19 @@
  SOFTWARE.
  */
 #pragma once
+
+#include <stdint.h>
+
 #define A64_MAX_BACKUPS 256
+#define NDEBUG
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 void A64HookFunction(void *const symbol, void *const replace, void **result);
-void *A64HookFunctionV(void *const symbol, void *const replace, void *const rwx, const uintptr_t rwx_size);
+void *A64HookFunctionV(void *const symbol, void *const replace,
+                       void *const rwx, const uintptr_t rwx_size);
 
 #ifdef __cplusplus
 }
