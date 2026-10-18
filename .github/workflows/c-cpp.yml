@@ -10,14 +10,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: ndk-build
-      run: |
-        $ANDROID_NDK_HOME/ndk-build \
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          lfs: true
+
+      - name: ndk-build
+        run: |
+          $ANDROID_NDK_HOME/ndk-build \
           NDK_PROJECT_PATH=. \
           APP_BUILD_SCRIPT=Android.mk \
           NDK_APPLICATION_MK=Application.mk
-    - uses: actions/upload-artifact@v4
-      with:
-        name: libs
-        path: libs/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: libs
+          path: libs/
